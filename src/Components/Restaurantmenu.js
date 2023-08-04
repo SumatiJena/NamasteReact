@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import useRestoMenu from "../../utils/useRestoMenu";
 import { useParams } from 'react-router-dom';
 import Simmer from './Simmer';
 
 
 const Restaurantmenu = () => {
-    const [restMenu, setRestMenu]=useState(null);
+  
     const {resid}=useParams();
-    console.log(resid);
-    useEffect(()=>{
-        fetResMenu();
-    },[])
-    const fetResMenu=async()=>{
-        const menu=await fetch("https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9774747&lng=77.732276&restaurantId="+resid);
-        const jsonData=await menu.json();
-        setRestMenu(jsonData?.data);
-    }
+    const restMenu= useRestoMenu(resid);
     if(restMenu==null){
         return <Simmer/>;
     }

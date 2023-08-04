@@ -13,6 +13,7 @@ const Header=()=>{
                 <li><Link to="/about">About</Link></li>
                 <li><Link to="serviece">Serviece</Link></li>
                 <li><Link to="contact">Contact</Link></li>
+                <li><Link to="grocery">Grocery</Link></li>
                 <li><button className="btn-login" style={{background:btnlogin=="login"?"green":"red"}} onClick={()=>btnlogin=="login"?setbtnlogin("logout"):setbtnlogin("login")}>{btnlogin}</button></li>
             </ul>
         </div>

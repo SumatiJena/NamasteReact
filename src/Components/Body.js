@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import React, { useState,useEffect } from "react";
 import Card from "./Card";
 import { Link, useParams } from 'react-router-dom';
+import useOnlinestatus from "../../utils/useOnlinestatus";
 import Simmer from "./Simmer";
 const Body=()=>{
     const [reslist, setReslist]=useState([]);
@@ -26,7 +27,11 @@ const Body=()=>{
         })
         setFilterresdata(fdata)
     }
-   
+    const online=useOnlinestatus();
+    console.log(online)
+   if(online==false){
+    return<h1>Please check your internet connection</h1>
+   }
     if(reslist?.length==0){
         return <Simmer/>
     }

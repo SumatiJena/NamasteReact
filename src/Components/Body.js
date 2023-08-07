@@ -4,6 +4,7 @@ import Card from "./Card";
 import { Link, useParams } from 'react-router-dom';
 import useOnlinestatus from "../../utils/useOnlinestatus";
 import Simmer from "./Simmer";
+import { RestrocaedWithpromoted } from "./Card";
 const Body=()=>{
     const [reslist, setReslist]=useState([]);
     const [searchData, setsearchData]=useState([]);
@@ -28,23 +29,30 @@ const Body=()=>{
         setFilterresdata(fdata)
     }
     const online=useOnlinestatus();
-    console.log(online)
    if(online==false){
     return<h1>Please check your internet connection</h1>
    }
     if(reslist?.length==0){
         return <Simmer/>
     }
+    const RestaurantCardPromoted=RestrocaedWithpromoted(Card);
    return reslist?.length==0?<Simmer/>:(
         <div className="body">
-        <div className="search">
-            <input type="text" value={searchData} onChange={(e)=>setsearchData(e.target.value)}/>
-           <button onClick={filterData}>Search</button>
+        <div className="search m-4 p-4">
+            <input type="text" value={searchData} onChange={(e)=>setsearchData(e.target.value)} className="border border-gray rounded-md" />
+           <button className="m-4 px-4 py-1 rounded-md bg-green-200" onClick={filterData}>Search</button>
         </div>
-        <div className="res-container">
+      
+        <div className="res-container flex flex-wrap">
           {filterresdata?.map((item,ind)=>{
             // console.log(item.info)
-            return <Link to={"/restaurant/"+item.info.id}><Card reslistdata={item.info} key={item.info.id}/></Link>
+            console.log(item.info.isOpen)
+            return( 
+            <>
+            <Link to={"/restaurant/"+item.info.id}>{item.info.isOpen?<RestaurantCardPromoted reslistdata={item.info} promoted={item.info.promoted} key={item.info.id}/>:<Card reslistdata={item.info} promoted={item.info.promoted} key={item.info.id}/>}</Link>
+            <h2>{item.info.isOpen?"huuu":"hello"}</h2>
+            </>  
+            )
           })}
            
            

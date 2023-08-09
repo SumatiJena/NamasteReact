@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import usercontext from '../../utils/usercontext';
 const Header=()=>{
-    const[btnlogin, setbtnlogin]=useState("login")
+    const[btnlogin, setbtnlogin]=useState("login");
+    const { loggedinuser }=useContext(usercontext);
     return(
     <div className="header flex justify-between bg-purple-100 shadow-sm sm:bg-green-200">
         <div className="logo w-20">
@@ -14,6 +16,7 @@ const Header=()=>{
                 <li className="px-4"><Link to="serviece">Serviece</Link></li>
                 <li className="px-4"><Link to="contact">Contact</Link></li>
                 <li className="px-4"><Link to="grocery">Grocery</Link></li>
+                <li className="px-4"><Link to="grocery">logged user:{loggedinuser}</Link></li>
                 <li><button className="btn-login rounded-lg px-3 py-2" style={{background:btnlogin=="login"?"green":"red"}} onClick={()=>btnlogin=="login"?setbtnlogin("logout"):setbtnlogin("login")}>{btnlogin}</button></li>
             </ul>
         </div>

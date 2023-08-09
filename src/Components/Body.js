@@ -1,14 +1,17 @@
 import { useParams } from "react-router-dom";
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect, useContext } from "react";
 import Card from "./Card";
 import { Link, useParams } from 'react-router-dom';
 import useOnlinestatus from "../../utils/useOnlinestatus";
 import Simmer from "./Simmer";
+import usercontext from "../../utils/usercontext";
 import { RestrocaedWithpromoted } from "./Card";
+//import Usercontext from "../../utils/Usercontext";
 const Body=()=>{
     const [reslist, setReslist]=useState([]);
     const [searchData, setsearchData]=useState([]);
     const [filterresdata, setFilterresdata]=useState([]);
+    const {loggedinuser, setUserName} = useContext(usercontext);
     // console.log(reslist[0].info.id)
     const { resid } = useParams();
     useEffect(() => {
@@ -42,11 +45,11 @@ const Body=()=>{
             <input type="text" value={searchData} onChange={(e)=>setsearchData(e.target.value)} className="border border-gray rounded-md" />
            <button className="m-4 px-4 py-1 rounded-md bg-green-200" onClick={filterData}>Search</button>
         </div>
+        <input type="text" value={loggedinuser} onChange={(e)=>setUserName(e.target.value)}/>
       
         <div className="res-container flex flex-wrap">
           {filterresdata?.map((item,ind)=>{
             // console.log(item.info)
-            console.log(item.info.isOpen)
             return( 
             <>
             <Link to={"/restaurant/"+item.info.id}>{item.info.isOpen?<RestaurantCardPromoted reslistdata={item.info} promoted={item.info.promoted} key={item.info.id}/>:<Card reslistdata={item.info} promoted={item.info.promoted} key={item.info.id}/>}</Link>

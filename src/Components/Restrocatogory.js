@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import Catagoryitemlist from './Catagoryitemlist';
 
-const Restrocatogory = ({data}) => {
-    const [showItem,setShowItemlist]=useState(false);
+const Restrocatogory = ({data,showItem, setShowIndex}) => {
+    // const [showItem,setShowItemlist]=useState(false);
     const handleClick=()=>{
-        setShowItemlist(!showItem);
+        setShowIndex();
     }
   return (
     <>
